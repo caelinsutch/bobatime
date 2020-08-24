@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>267365425487-9nrj1vvog5nsf629o7tg5vpf16o34ve0.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.267365425487-9nrj1vvog5nsf629o7tg5vpf16o34ve0</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDR64jXoBsxRdRatwlkeM45bTKZaJF43Co</string>
+	<key>GCM_SENDER_ID</key>
+	<string>267365425487</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>me.bobati.bobaTime</string>
+	<key>PROJECT_ID</key>
+	<string>bobatime-app</string>
+	<key>STORAGE_BUCKET</key>
+	<string>bobatime-app.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:267365425487:ios:d0648d7c31ea718c3ae53a</string>
+	<key>DATABASE_URL</key>
+	<string>https://bobatime-app.firebaseio.com</string>
+</dict>
+</plist>

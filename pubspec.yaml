@@ -47,6 +47,7 @@ dependencies:
   flutter_map:
   location:
   flutter_rating_bar:
+  badges:
 
 dev_dependencies:
   flutter_test:

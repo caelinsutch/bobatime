@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:boba_time/constants/constants.dart';
 import 'package:boba_time/screens/screens.dart';
 import 'package:flutter/material.dart';
@@ -61,14 +62,31 @@ class _RootScreenState extends State<RootScreen> {
   Widget build(context) => Scaffold(
         resizeToAvoidBottomPadding: false,
         appBar: AppBar(
+            actions: <Widget>[
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Badge(
+                  badgeContent: Text('3', style: TextStyle(color: Colors.white),),
+                  badgeColor: Colors.redAccent,
+                  position: BadgePosition.topRight(top: 0, right: 3),
+                  animationDuration: Duration(milliseconds: 300),
+                  animationType: BadgeAnimationType.slide,
+                  child: IconButton(
+                    icon: Icon(Icons.notifications),
+                    color: Colors.white,
+                    onPressed: () => print('Notification'),
+                  ),
+                ),
+              )
+            ],
             title: Text(
-          'BOBATIME',
-          style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 24,
-              fontFamily: "PollyRounded"),
-        )),
+              'BOBATIME',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24,
+                  fontFamily: "PollyRounded"),
+            )),
         floatingActionButton: FloatingActionButton(
           child: Icon(
             Icons.add,

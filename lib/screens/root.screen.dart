@@ -3,6 +3,7 @@ import 'package:boba_time/constants/constants.dart';
 import 'package:boba_time/screens/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:get/get.dart';
 
 class RootScreen extends StatefulWidget {
   @override
@@ -66,7 +67,10 @@ class _RootScreenState extends State<RootScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Badge(
-                  badgeContent: Text('3', style: TextStyle(color: Colors.white),),
+                  badgeContent: Text(
+                    '3',
+                    style: TextStyle(color: Colors.white),
+                  ),
                   badgeColor: Colors.redAccent,
                   position: BadgePosition.topRight(top: 0, right: 3),
                   animationDuration: Duration(milliseconds: 300),
@@ -74,7 +78,7 @@ class _RootScreenState extends State<RootScreen> {
                   child: IconButton(
                     icon: Icon(Icons.notifications),
                     color: Colors.white,
-                    onPressed: () => print('Notification'),
+                    onPressed: () => Get.toNamed('/notifications'),
                   ),
                 ),
               )
@@ -94,7 +98,7 @@ class _RootScreenState extends State<RootScreen> {
             color: Colors.white,
           ),
           elevation: 5.0,
-          onPressed: () {},
+          onPressed: () => Get.toNamed('/new'),
         ),
         body: _bodyWidget(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

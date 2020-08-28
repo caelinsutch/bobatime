@@ -13,6 +13,7 @@ void main() async {
   final AuthController authController =
       Get.put<AuthController>(AuthController());
   Get.put<ThemeController>(ThemeController());
+  Get.put<BobaYelpController>(BobaYelpController());
   await GetStorage.init();
   String initialRoute = '/auth';
   // Check if user is logged in

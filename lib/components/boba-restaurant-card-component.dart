@@ -5,10 +5,13 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class BobaRestaurantCardComponent extends StatelessWidget {
   String restaurantTitle = 'Boba 1';
-  int restaurantRating = 3;
+  String restaurantImage = 'https://via.placeholder.com/400x400';
+  double restaurantRating = 3;
 
   BobaRestaurantCardComponent(
-      {@required this.restaurantTitle, @required this.restaurantRating})
+      {@required this.restaurantTitle,
+      @required this.restaurantRating,
+      @required this.restaurantImage})
       : assert(restaurantRating <= 5 && restaurantRating >= 0);
 
   @override
@@ -19,9 +22,10 @@ class BobaRestaurantCardComponent extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(8.0),
             child: Image.network(
-              'https://via.placeholder.com/400x400',
+              this.restaurantImage,
               width: 75,
               height: 75,
+              fit: BoxFit.fill,
             ),
           ),
           SizedBox(
@@ -35,7 +39,7 @@ class BobaRestaurantCardComponent extends StatelessWidget {
             height: 15,
           ),
           RatingBar(
-            initialRating: 3,
+            initialRating: this.restaurantRating,
             minRating: 0,
             direction: Axis.horizontal,
             allowHalfRating: true,

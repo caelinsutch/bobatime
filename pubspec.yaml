@@ -48,7 +48,8 @@ dependencies:
   location:
   flutter_rating_bar:
   badges:
-  page_transition: "^1.1.6"
+  page_transition: ^1.1.6
+  http: ^0.12.2
 
 dev_dependencies:
   flutter_test:

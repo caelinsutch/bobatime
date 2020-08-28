@@ -17,7 +17,7 @@ class _MapScreenState extends State<MapScreen> {
   LatLng currentLatLng;
   List<BobaShopModel> bobaShops;
   final BobaYelpController _bobaYelpController = Get.find();
-  List<Marker> bobaShopMarkers = []
+  List<Marker> bobaShopMarkers = [];
 
   @override
   void initState() {
@@ -29,10 +29,18 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var markers = <Marker>[
-
-    ];
     _getLocalBobaShops();
+    this.bobaShopMarkers.add(Marker(
+          point: currentLatLng,
+          builder: (ctx) => Container(
+            decoration: BoxDecoration(
+              color: Colors.red,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            width: 7,
+            height: 7,
+          ),
+        ));
     // Until currentLocation is initially updated, Widget can locate to 0, 0
     // by default or store previous location value to show.
     return Scaffold(
@@ -44,7 +52,7 @@ class _MapScreenState extends State<MapScreen> {
                 options: MapOptions(
                   center:
                       LatLng(currentLatLng.latitude, currentLatLng.longitude),
-                  zoom: 15.0,
+                  zoom: 12.0,
                 ),
                 layers: [
                   TileLayerOptions(
@@ -56,7 +64,7 @@ class _MapScreenState extends State<MapScreen> {
                     // NetworkTileProvider or CachedNetworkTileProvider
                     tileProvider: NonCachingNetworkTileProvider(),
                   ),
-                  MarkerLayerOptions(markers: markers)
+                  MarkerLayerOptions(markers: bobaShopMarkers)
                 ],
               )
             : Container(),
@@ -94,6 +102,20 @@ class _MapScreenState extends State<MapScreen> {
           .getBobaShops(latitude, longitude)
           .then((value) => this.setState(() {
                 this.bobaShops = value;
+                this.bobaShops.forEach((element) {
+                  bobaShopMarkers.add(Marker(
+                    point: LatLng(element.coordinates.latitude,
+                        element.coordinates.longitude),
+                    builder: (ctx) => Container(
+                      decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      width: 7,
+                      height: 7,
+                    ),
+                  ));
+                });
               }));
     }
   }

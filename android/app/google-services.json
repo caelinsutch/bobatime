@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "267365425487",
+    "firebase_url": "https://bobatime-app.firebaseio.com",
+    "project_id": "bobatime-app",
+    "storage_bucket": "bobatime-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:267365425487:android:b413210716624ffa3ae53a",
+        "android_client_info": {
+          "package_name": "me.bobati.boba_time"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "267365425487-5jvt7s2h39dv4uahmum9rn4cf30k0pfo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "me.bobati.boba_time",
+            "certificate_hash": "444b7bcfce6e6fd3a5d1ea83b214958ece27c275"
+          }
+        },
+        {
+          "client_id": "267365425487-s0n15pf0va2glts51nettppdlpt35ucv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCX2h76fREU4xnBIidMIt4LxMHGbmg-Clw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "267365425487-s0n15pf0va2glts51nettppdlpt35ucv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "267365425487-9nrj1vvog5nsf629o7tg5vpf16o34ve0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "me.bobati.bobaTime"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

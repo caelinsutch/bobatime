@@ -14,31 +14,31 @@ class MapScreen extends StatefulWidget {
 
 class _MapScreenState extends State<MapScreen> {
   MapController _mapController;
-  LatLng currentLatLng;
-  List<BobaShopModel> bobaShops;
+  LatLng _currentLatLng;
+  List<BobaShopModel> _bobaShops;
   final BobaYelpController _bobaYelpController = Get.find();
-  List<Marker> bobaShopMarkers = [];
+  List<Marker> _bobaShopMarkers = [];
 
   @override
   void initState() {
     super.initState();
     _mapController = MapController();
-    this.currentLatLng = LatLng(_bobaYelpController.latLng.value.latitude,
+    this._currentLatLng = LatLng(_bobaYelpController.latLng.value.latitude,
         _bobaYelpController.latLng.value.longitude);
   }
 
   @override
   Widget build(BuildContext context) {
     _getLocalBobaShops();
-    this.bobaShopMarkers.add(Marker(
-          point: currentLatLng,
+    this._bobaShopMarkers.add(Marker(
+          point: _currentLatLng,
+          width: 15,
+          height: 15,
           builder: (ctx) => Container(
             decoration: BoxDecoration(
               color: Colors.red,
               borderRadius: BorderRadius.circular(20),
             ),
-            width: 7,
-            height: 7,
           ),
         ));
     // Until currentLocation is initially updated, Widget can locate to 0, 0
@@ -46,12 +46,12 @@ class _MapScreenState extends State<MapScreen> {
     return Scaffold(
         body: Stack(
       children: <Widget>[
-        currentLatLng != null
+        _currentLatLng != null
             ? FlutterMap(
                 mapController: _mapController,
                 options: MapOptions(
                   center:
-                      LatLng(currentLatLng.latitude, currentLatLng.longitude),
+                      LatLng(_currentLatLng.latitude, _currentLatLng.longitude),
                   zoom: 12.0,
                 ),
                 layers: [
@@ -64,7 +64,7 @@ class _MapScreenState extends State<MapScreen> {
                     // NetworkTileProvider or CachedNetworkTileProvider
                     tileProvider: NonCachingNetworkTileProvider(),
                   ),
-                  MarkerLayerOptions(markers: bobaShopMarkers)
+                  MarkerLayerOptions(markers: _bobaShopMarkers)
                 ],
               )
             : Container(),
@@ -79,11 +79,11 @@ class _MapScreenState extends State<MapScreen> {
       child: Container(
           width: Get.mediaQuery.size.width,
           height: 300,
-          child: this.bobaShops != null
+          child: this._bobaShops != null
               ? ListView(
                   scrollDirection: Axis.horizontal,
                   children: this
-                      .bobaShops
+                      ._bobaShops
                       .map((e) => BobaRestaurantCardComponent(
                             restaurantTitle: e.name,
                             restaurantRating: e.rating,
@@ -94,29 +94,37 @@ class _MapScreenState extends State<MapScreen> {
     );
   }
 
-  void _getLocalBobaShops() {
-    if (currentLatLng != null) {
-      final latitude = currentLatLng.latitude;
-      final longitude = currentLatLng.longitude;
-      _bobaYelpController
-          .getBobaShops(latitude, longitude)
-          .then((value) => this.setState(() {
-                this.bobaShops = value;
-                this.bobaShops.forEach((element) {
-                  bobaShopMarkers.add(Marker(
-                    point: LatLng(element.coordinates.latitude,
-                        element.coordinates.longitude),
-                    builder: (ctx) => Container(
-                      decoration: BoxDecoration(
-                        color: Colors.green,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      width: 7,
-                      height: 7,
-                    ),
-                  ));
-                });
-              }));
+  void _getLocalBobaShops() async {
+    if (_currentLatLng != null) {
+      // Get the current user location
+      final latitude = _currentLatLng.latitude;
+      final longitude = _currentLatLng.longitude;
+      // Call the Yelp API to get boba shops
+      final List<BobaShopModel> newBobaShops =
+          await _bobaYelpController.getBobaShops(latitude, longitude);
+
+      this._bobaShops = newBobaShops;
+
+      this._bobaShops.forEach((element) {
+        _createBobaShopMarker(
+            element.coordinates.latitude, element.coordinates.longitude);
+      });
     }
+  }
+
+  void _createBobaShopMarker(double latitude, double longitude) {
+    this.setState(() {
+      _bobaShopMarkers.add(Marker(
+        point: LatLng(latitude, longitude),
+        width: 10,
+        height: 10,
+        builder: (ctx) => Container(
+          decoration: BoxDecoration(
+            color: Colors.blue,
+            borderRadius: BorderRadius.circular(5),
+          ),
+        ),
+      ));
+    });
   }
 }

@@ -25,11 +25,11 @@ class _MapScreenState extends State<MapScreen> {
     _mapController = MapController();
     this._currentLatLng = LatLng(_bobaYelpController.latLng.value.latitude,
         _bobaYelpController.latLng.value.longitude);
+    _getLocalBobaShops();
   }
 
   @override
   Widget build(BuildContext context) {
-    _getLocalBobaShops();
     this._bobaShopMarkers.add(Marker(
           point: _currentLatLng,
           width: 15,
@@ -78,7 +78,7 @@ class _MapScreenState extends State<MapScreen> {
       bottom: 0,
       child: Container(
           width: Get.mediaQuery.size.width,
-          height: 300,
+          height: Get.mediaQuery.size.height * .35,
           child: this._bobaShops != null
               ? ListView(
                   scrollDirection: Axis.horizontal,

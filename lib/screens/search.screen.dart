@@ -50,9 +50,9 @@ class SearchScreen extends StatelessWidget {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: <Widget>[
-                  ProfileCardSearchComponent(false),
-                  ProfileCardSearchComponent(true),
-                  ProfileCardSearchComponent(true),
+                  ProfileCardSearchComponent(isFollowed: true,),
+                  ProfileCardSearchComponent(isFollowed: false,),
+                  ProfileCardSearchComponent(isFollowed: true,),
                 ],
               ),
             )

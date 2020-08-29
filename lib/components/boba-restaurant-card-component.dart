@@ -11,13 +11,16 @@ class BobaRestaurantCardComponent extends StatelessWidget {
   BobaRestaurantCardComponent(
       {@required this.restaurantTitle,
       @required this.restaurantRating,
-      @required this.restaurantImage})
+      this.restaurantImage = 'https://via.placeholder.com/400x400'})
       : assert(restaurantRating <= 5 && restaurantRating >= 0);
 
   @override
   Widget build(BuildContext context) {
     return CardComponent(
+      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+      margin: EdgeInsets.all(10),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           ClipRRect(
             borderRadius: BorderRadius.circular(8.0),
@@ -29,14 +32,14 @@ class BobaRestaurantCardComponent extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: 15,
+            height: 10,
           ),
           Text(
             restaurantTitle,
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           SizedBox(
-            height: 15,
+            height: 10,
           ),
           RatingBar(
             initialRating: this.restaurantRating,

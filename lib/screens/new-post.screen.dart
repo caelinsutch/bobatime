@@ -53,8 +53,24 @@ class _NewPostScreenState extends State<NewPostScreen> {
                 height: 10,
               ),
               _descriptionBox(),
-//              _bobaRestaurantPicker(),
-//              _postButton()
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                'Boba Shop',
+                style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              _bobaRestaurantPicker(),
+              SizedBox(
+                height: 20,
+              ),
+              _postButton()
             ],
           ),
         ),
@@ -87,14 +103,11 @@ class _NewPostScreenState extends State<NewPostScreen> {
                 const Radius.circular(10.0),
               ),
               borderSide: BorderSide(color: Colors.white)),
-//          focusedBorder: InputBorder.none,
           enabledBorder: OutlineInputBorder(
               borderRadius: const BorderRadius.all(
                 const Radius.circular(10.0),
               ),
               borderSide: BorderSide(color: Colors.white)),
-//          errorBorder: InputBorder.none,
-//          disabledBorder: InputBorder.none,
           fillColor: Colors.white,
           filled: true,
         ),
@@ -104,7 +117,34 @@ class _NewPostScreenState extends State<NewPostScreen> {
         maxLines: 5);
   }
 
-  Widget _bobaRestaurantPicker() {}
+  Widget _bobaRestaurantPicker() {
+    return TextField(
+      decoration: InputDecoration(
+          hintText: "Boba Shop",
+          border: OutlineInputBorder(
+              borderRadius: const BorderRadius.all(
+                const Radius.circular(10.0),
+              ),
+              borderSide: BorderSide(color: Colors.white)),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: const BorderRadius.all(
+                const Radius.circular(10.0),
+              ),
+              borderSide: BorderSide(color: Colors.white)),
+          fillColor: Colors.white,
+          filled: true,
+          prefixIcon: Icon(Icons.search)),
+    );
+  }
 
-  Widget _postButton() {}
+  Widget _postButton() {
+    return FlatButton(
+      color: Colors.white,
+      textColor: AppThemes.bobaGreen,
+      child: Text(
+        'Get Directions',
+      ),
+      onPressed: () => print('Directions'),
+    );
+  }
 }

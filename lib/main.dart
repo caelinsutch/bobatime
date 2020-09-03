@@ -10,11 +10,17 @@ import 'controllers/controllers.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Register controllers
   final AuthController authController =
       Get.put<AuthController>(AuthController());
   Get.put<ThemeController>(ThemeController());
   Get.put<BobaYelpController>(BobaYelpController());
+  Get.put<PositionController>(PositionController());
+
+  // Initialize local storage
   await GetStorage.init();
+
   String initialRoute = '/auth';
   // Check if user is logged in
   if (await authController.getUser != null) {

@@ -5,7 +5,10 @@ class CardComponent extends StatelessWidget {
   EdgeInsetsGeometry padding;
   EdgeInsetsGeometry margin;
 
-  CardComponent({this.child, this.padding = const EdgeInsets.all(20), this.margin = const EdgeInsets.all(20)});
+  CardComponent(
+      {this.child,
+      this.padding = const EdgeInsets.all(20),
+      this.margin = const EdgeInsets.all(20)});
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +23,8 @@ class CardComponent extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: Color.fromARGB(30, 0, 0, 0),
-            offset: Offset(0, 2),
-            blurRadius: 25,
+            offset: Offset(0, 0),
+            blurRadius: 10,
           ),
         ],
         borderRadius: BorderRadius.all(Radius.circular(10)),

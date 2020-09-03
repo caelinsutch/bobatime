@@ -1,5 +1,5 @@
-import 'package:boba_time/components/boba-restaurant-card-component.dart';
-import 'package:boba_time/controllers/boba.controller.dart';
+import 'package:boba_time/components/components.dart';
+import 'package:boba_time/controllers/controllers.dart';
 import 'package:boba_time/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -16,6 +16,7 @@ class _MapScreenState extends State<MapScreen> {
   MapController _mapController;
   LatLng _currentLatLng;
   List<BobaShopModel> _bobaShops;
+  final PositionController _positionController = Get.find();
   final BobaYelpController _bobaYelpController = Get.find();
   List<Marker> _bobaShopMarkers = [];
 
@@ -23,8 +24,8 @@ class _MapScreenState extends State<MapScreen> {
   void initState() {
     super.initState();
     _mapController = MapController();
-    this._currentLatLng = LatLng(_bobaYelpController.latLng.value.latitude,
-        _bobaYelpController.latLng.value.longitude);
+    this._currentLatLng = LatLng(_positionController.latLng.value.latitude,
+        _positionController.latLng.value.longitude);
     _getLocalBobaShops();
   }
 
@@ -100,8 +101,8 @@ class _MapScreenState extends State<MapScreen> {
       final latitude = _currentLatLng.latitude;
       final longitude = _currentLatLng.longitude;
       // Call the Yelp API to get boba shops
-      final List<BobaShopModel> newBobaShops =
-          await _bobaYelpController.getBobaShops(latitude, longitude);
+      final List<BobaShopModel> newBobaShops = await _bobaYelpController
+          .getBobaShops(latitude: latitude, longitude: longitude);
 
       this._bobaShops = newBobaShops;
 

@@ -59,38 +59,80 @@ class _RootScreenState extends State<RootScreen> {
     ];
   }
 
+  AppBar _homeAppBar() {
+    return AppBar(
+        elevation: 0,
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Badge(
+              badgeContent: Text(
+                '3',
+                style: TextStyle(color: Colors.white),
+              ),
+              badgeColor: Colors.redAccent,
+              position: BadgePosition.topRight(top: 0, right: 3),
+              animationDuration: Duration(milliseconds: 300),
+              animationType: BadgeAnimationType.slide,
+              child: IconButton(
+                icon: Icon(Icons.notifications),
+                color: Colors.white,
+                onPressed: () => Get.toNamed('/notifications'),
+              ),
+            ),
+          )
+        ],
+        title: Text(
+          'BOBATIME',
+          style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 24,
+              fontFamily: "PollyRounded"),
+        ));
+  }
+
+  AppBar _normalAppBar(String text) {
+    return AppBar(
+      elevation: 0,
+      backgroundColor: Colors.grey[100],
+      bottom: PreferredSize(
+          child: Container(
+            color: Colors.grey[200],
+            height: 1.0,
+          ),
+          preferredSize: Size.fromHeight(4.0)),
+      title: Center(
+        child: Text(
+          text,
+          style: TextStyle(
+//              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+              fontFamily: "PollyRounded"),
+        ),
+      ),
+    );
+  }
+
+  Widget _getAppBar() {
+    if (_selectedIndex == 0) {
+      return _homeAppBar();
+    } else if (_selectedIndex == 1) {
+      return _normalAppBar('Map');
+    } else if (_selectedIndex == 2) {
+      return _normalAppBar('Search');
+    } else if (_selectedIndex == 3) {
+      return _normalAppBar('Account');
+    } else {
+      return _normalAppBar('');
+    }
+  }
+
   @override
   Widget build(context) => Scaffold(
         resizeToAvoidBottomPadding: false,
-        appBar: AppBar(
-            actions: <Widget>[
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Badge(
-                  badgeContent: Text(
-                    '3',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  badgeColor: Colors.redAccent,
-                  position: BadgePosition.topRight(top: 0, right: 3),
-                  animationDuration: Duration(milliseconds: 300),
-                  animationType: BadgeAnimationType.slide,
-                  child: IconButton(
-                    icon: Icon(Icons.notifications),
-                    color: Colors.white,
-                    onPressed: () => Get.toNamed('/notifications'),
-                  ),
-                ),
-              )
-            ],
-            title: Text(
-              'BOBATIME',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24,
-                  fontFamily: "PollyRounded"),
-            )),
+        appBar: _getAppBar(),
         floatingActionButton: FloatingActionButton(
           child: Icon(
             Icons.add,

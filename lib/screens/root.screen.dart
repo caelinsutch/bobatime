@@ -1,5 +1,6 @@
 import 'package:badges/badges.dart';
 import 'package:boba_time/constants/constants.dart';
+import 'package:boba_time/controllers/controllers.dart';
 import 'package:boba_time/screens/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -12,6 +13,8 @@ class RootScreen extends StatefulWidget {
 
 class _RootScreenState extends State<RootScreen> {
   int _selectedIndex = 0;
+
+  AuthController _authController = Get.find();
 
   void _onItemTapped(int index) {
     setState(() {
@@ -123,7 +126,7 @@ class _RootScreenState extends State<RootScreen> {
     } else if (_selectedIndex == 2) {
       return _normalAppBar('Search');
     } else if (_selectedIndex == 3) {
-      return _normalAppBar('Account');
+      return _normalAppBar(_authController.firestoreUser.value.name);
     } else {
       return _normalAppBar('');
     }

@@ -112,9 +112,13 @@ class UserController extends GetxController {
     update();
   }
 
-  void updateFirstoreUser(Map updateValues, String firebaseUserUid) {
-    _db.document('/users/$firebaseUserUid').setData(updateValues, merge: true);
+  Future<void> updateFirstoreUser(
+      Map updateValues, String firebaseUserUid) async {
+    await _db
+        .document('/users/$firebaseUserUid')
+        .setData(updateValues, merge: true);
     update();
+    return;
   }
 
   //check if user is an admin user

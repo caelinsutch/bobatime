@@ -1,3 +1,4 @@
+import 'package:boba_time/components/components.dart';
 import 'package:boba_time/constants/constants.dart';
 import 'package:boba_time/controllers/controllers.dart';
 import 'package:flutter/material.dart';
@@ -36,13 +37,8 @@ class AccountScreen extends StatelessWidget {
                 flex: 1,
                 child: Padding(
                   padding: const EdgeInsets.only(right: 20.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8.0),
-                    child: Image.network(
-                      _userController.firestoreUser.value.photoUrl,
-                      width: 100,
-                      height: 100,
-                    ),
+                  child: ProfileImageComponent(
+                    imageUrl: _userController.firestoreUser.value.photoUrl,
                   ),
                 ),
               ),

@@ -1,5 +1,7 @@
+import 'package:boba_time/components/components.dart';
 import 'package:boba_time/constants/constants.dart';
 import 'package:boba_time/controllers/controllers.dart';
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -20,6 +22,8 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
     super.initState();
     _nameEditingController =
         TextEditingController(text: _userController.firestoreUser.value.name);
+    _bioEditingController =
+        TextEditingController(text: _userController.firestoreUser.value.bio);
   }
 
   @override
@@ -76,16 +80,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
     return Center(
       child: Column(
         children: [
-          ClipRRect(
-              borderRadius: BorderRadius.circular(8.0),
-              child: imageUrl != null
-                  ? Image.network(
-                      imageUrl,
-                      width: 100,
-                      height: 100,
-                      fit: BoxFit.cover,
-                    )
-                  : Container()),
+          ProfileImageComponent(imageUrl: imageUrl),
           SizedBox(
             height: 10,
           ),
@@ -162,11 +157,29 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
 
     dynamic updateInformation = {'name': newName, 'bio': newBio};
 
-    try {
-      _userController.updateFirstoreUser(
-          updateInformation, _userController.firebaseUser.value.uid);
-    } catch (e) {
-      print(e);
+    // Check that the bio is less than 150 characters
+    if (newBio.length > 150) {
+      print('a');
+      Flushbar(
+        message: "Bio must be less than 150 characters",
+        backgroundColor: Colors.red,
+        duration: Duration(seconds: 3),
+      )..show(Get.context);
+    } else {
+      try {
+        _userController
+            .updateFirstoreUser(
+                updateInformation, _userController.firebaseUser.value.uid)
+            .then((value) {
+          Flushbar(
+            message: "Account Updated!",
+            backgroundColor: Colors.green,
+            duration: Duration(seconds: 3),
+          )..show(Get.context);
+        });
+      } catch (e) {
+        print(e);
+      }
     }
   }
 }

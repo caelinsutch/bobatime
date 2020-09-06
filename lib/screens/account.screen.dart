@@ -54,7 +54,7 @@ class AccountScreen extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          Text('Bio'),
+          Text(_userController.firestoreUser.value.bio),
           SizedBox(
             height: 20,
           ),

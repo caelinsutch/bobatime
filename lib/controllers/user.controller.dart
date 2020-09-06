@@ -97,8 +97,9 @@ class UserController extends GetxController {
         name: firebaseUser.displayName,
         photoUrl: firebaseUser.photoUrl);
 
-    // TODO Check if there's an exsiting user before writing to firestore document
-    overrideFirestoreUser(userModel, currentFirebaseUser.uid);
+    if (_db.document(firebaseUser.uid).isNullOrBlank) {
+      _createFirestoreUser(userModel, currentFirebaseUser.uid);
+    }
     Get.offAndToNamed('/');
   }
 
@@ -107,8 +108,8 @@ class UserController extends GetxController {
   }
 
   //updates the firestore users collection
-  void overrideFirestoreUser(UserModel user, String firebaseUserUid) {
-    _db.document('/users/$firebaseUserUid').setData(user.toMap(), merge: true);
+  void _createFirestoreUser(UserModel user, String firebaseUserUid) {
+    _db.document('/users/$firebaseUserUid').setData(user.toMap());
     update();
   }
 

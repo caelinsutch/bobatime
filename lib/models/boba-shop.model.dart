@@ -8,37 +8,37 @@ class Coordinates {
     return Coordinates(
         latitude: data['latitude'], longitude: data['longitude']);
   }
+
+  Map<String, dynamic> toMap() => {
+        'latitude': latitude,
+        'longitude': longitude,
+      };
 }
 
 class BobaShopModel {
   String id;
   String name;
   String imageUrl;
-  bool isClosed;
-  String url;
   double rating;
   Coordinates coordinates;
-  String displayAddress;
 
   BobaShopModel(
-      {this.id,
-      this.name,
-      this.imageUrl,
-      this.isClosed,
-      this.url,
-      this.rating,
-      this.coordinates,
-      this.displayAddress});
+      {this.id, this.name, this.imageUrl, this.rating, this.coordinates});
 
   factory BobaShopModel.fromMap(Map data) {
     return BobaShopModel(
         id: data['id'],
         name: data['name'],
         imageUrl: data['image_url'],
-        isClosed: data['is_closed'],
-        url: data['url'],
         rating: data['rating'],
-        coordinates: Coordinates.fromMap(data['coordinates']),
-        displayAddress: data['display_address']);
+        coordinates: Coordinates.fromMap(data['coordinates']));
   }
+
+  Map<String, dynamic> toMap() => {
+        "id": id,
+        "name": name,
+        "imageUrl": imageUrl,
+        "rating": rating,
+        "coordinates": coordinates.toMap()
+      };
 }

@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:boba_time/components/components.dart';
 import 'package:boba_time/constants/constants.dart';
 import 'package:boba_time/controllers/controllers.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class EditAccountScreen extends StatefulWidget {
   @override
@@ -15,6 +19,8 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
   TextEditingController _bioEditingController = TextEditingController();
 
   UserController _userController = Get.find();
+
+  bool _photoLoading = false;
 
   @override
   void initState() {
@@ -80,16 +86,21 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
     return Center(
       child: Column(
         children: [
-          ProfileImageComponent(imageUrl: imageUrl),
+          _photoLoading
+              ? CircularProgressIndicator()
+              : ProfileImageComponent(imageUrl: imageUrl),
           SizedBox(
             height: 10,
           ),
-          Text(
-            'Change Profile Photo',
-            style: TextStyle(
-                color: AppThemes.bobaGreen,
-                fontSize: 12,
-                fontWeight: FontWeight.bold),
+          GestureDetector(
+            onTap: () => _uploadNewPhoto(),
+            child: Text(
+              'Change Profile Photo',
+              style: TextStyle(
+                  color: AppThemes.bobaGreen,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold),
+            ),
           )
         ],
       ),
@@ -181,5 +192,45 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
         print(e);
       }
     }
+  }
+
+  void _uploadNewPhoto() async {
+    this.setState(() {
+      _photoLoading = true;
+    });
+    File image = await _pickPhoto();
+    await _uploadFile(image);
+    Flushbar(
+      message: "Profile Photo Updated!",
+      backgroundColor: Colors.green,
+      duration: Duration(seconds: 3),
+    )..show(Get.context);
+    this.setState(() {
+      _photoLoading = false;
+    });
+  }
+
+  Future<File> _pickPhoto() async {
+    ImagePicker imagePicker = ImagePicker();
+    PickedFile pickedImage = await imagePicker.getImage(
+        source: ImageSource.gallery,
+        imageQuality: 50,
+        maxHeight: 400,
+        maxWidth: 400);
+    return File(pickedImage.path);
+  }
+
+  Future<void> _uploadFile(File profilePhoto) async {
+    StorageReference storageReference = FirebaseStorage.instance
+        .ref()
+        .child('profile_images/${profilePhoto.path}}');
+    StorageUploadTask uploadTask = storageReference.putFile(profilePhoto);
+    await uploadTask.onComplete;
+    String fileUrl = await storageReference.getDownloadURL();
+    dynamic updateInfo = {
+      'photoUrl': fileUrl,
+    };
+    _userController.updateFirstoreUser(
+        updateInfo, _userController.firebaseUser.value.uid);
   }
 }

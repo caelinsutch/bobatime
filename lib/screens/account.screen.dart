@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AccountScreen extends StatelessWidget {
-  final AuthController _authController = Get.find();
+  final UserController _authController = Get.find();
   final bool _isUsersAccount = true;
 
   int _postCount = 0;
   int _followerCount = 0;
   int _followingCount = 0;
+
+  UserController _userController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,7 @@ class AccountScreen extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
                     child: Image.network(
-                      'https://via.placeholder.com/400x400',
+                      _userController.firestoreUser.value.photoUrl,
                       width: 100,
                       height: 100,
                     ),
@@ -78,7 +80,7 @@ class AccountScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 12),
                   ),
                   padding: EdgeInsets.all(0),
-                  onPressed: () => print('Pressed'),
+                  onPressed: () => Get.toNamed('/edit'),
                   borderSide: BorderSide(
                     color: Get.theme.primaryColor, //Color of the border
                     style: BorderStyle.solid, //Style of the border

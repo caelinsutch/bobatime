@@ -12,8 +12,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Register controllers
-  final AuthController authController =
-      Get.put<AuthController>(AuthController());
+  final UserController authController =
+      Get.put<UserController>(UserController());
   Get.put<ThemeController>(ThemeController());
   Get.put<BobaYelpController>(BobaYelpController());
   Get.put<PositionController>(PositionController());

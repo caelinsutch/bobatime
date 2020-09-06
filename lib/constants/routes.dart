@@ -11,5 +11,6 @@ class AppRoutes {
     GetPage(name: '/auth', page: () => AuthScreen()),
     GetPage(name: '/notifications', page: () => NotificationsScreen()),
     GetPage(name: '/new', page: () => NewPostScreen()),
+    GetPage(name: '/edit', page: () => EditAccountScreen()),
   ];
 }

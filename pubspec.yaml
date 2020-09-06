@@ -50,9 +50,7 @@ dependencies:
   badges:
   page_transition: ^1.1.6
   http: ^0.12.2
-
-dependency_overrides:
-  flutter_svg: ^0.18.0
+  flushbar: ^1.10.4
 
 dev_dependencies:
   flutter_test:

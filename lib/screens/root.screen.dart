@@ -14,7 +14,7 @@ class RootScreen extends StatefulWidget {
 class _RootScreenState extends State<RootScreen> {
   int _selectedIndex = 0;
 
-  AuthController _authController = Get.find();
+  UserController _authController = Get.find();
 
   void _onItemTapped(int index) {
     setState(() {
@@ -109,7 +109,6 @@ class _RootScreenState extends State<RootScreen> {
         child: Text(
           text,
           style: TextStyle(
-//              color: Colors.white,
               fontWeight: FontWeight.bold,
               fontSize: 18,
               fontFamily: "PollyRounded"),

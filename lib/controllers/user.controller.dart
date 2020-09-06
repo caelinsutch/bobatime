@@ -6,8 +6,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class AuthController extends GetxController {
-  static AuthController to = Get.find();
+class UserController extends GetxController {
+  static UserController to = Get.find();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final Firestore _db = Firestore.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -97,7 +97,8 @@ class AuthController extends GetxController {
         name: firebaseUser.displayName,
         photoUrl: firebaseUser.photoUrl);
 
-    _updateUserFirestore(userModel, currentFirebaseUser);
+    // TODO Check if there's an exsiting user before writing to firestore document
+    overrideFirestoreUser(userModel, currentFirebaseUser.uid);
     Get.offAndToNamed('/');
   }
 
@@ -106,10 +107,13 @@ class AuthController extends GetxController {
   }
 
   //updates the firestore users collection
-  void _updateUserFirestore(UserModel user, FirebaseUser _firebaseUser) {
-    _db
-        .document('/users/${_firebaseUser.uid}')
-        .setData(user.toJson(), merge: true);
+  void overrideFirestoreUser(UserModel user, String firebaseUserUid) {
+    _db.document('/users/$firebaseUserUid').setData(user.toMap(), merge: true);
+    update();
+  }
+
+  void updateFirstoreUser(Map updateValues, String firebaseUserUid) {
+    _db.document('/users/$firebaseUserUid').setData(updateValues, merge: true);
     update();
   }
 

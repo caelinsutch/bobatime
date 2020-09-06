@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 class AuthScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final AuthController authController = Get.find();
+    final UserController authController = Get.find();
 
     return Scaffold(
       backgroundColor: CustomColors.main,

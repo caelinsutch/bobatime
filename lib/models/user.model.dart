@@ -43,11 +43,11 @@ class UserModel {
         posts: data['posts'] ?? [],
         favoriteBobaShops: data['favoriteBobaShops'] != null
             ? data['favoriteBobaShops']
-                .map((shop) => BobaShopModel.fromMap(shop))
+                .map((shop) => BobaShopModel.fromMap(shop)).cast<BobaShopModel>().toList()
             : [],
         notifications: data['notifications'] != null
             ? data['notifications']
-                .map((notification) => NotificationModel.fromMap(notification))
+                .map((notification) => NotificationModel.fromMap(notification)).cast<NotificationModel>().toList()
             : []);
   }
 

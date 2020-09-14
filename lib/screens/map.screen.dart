@@ -105,6 +105,11 @@ class _MapScreenState extends State<MapScreen> {
         if (e.name == bobaShop.name) {
           e.isSaved = !e.isSaved;
         }
+        if (e.isSaved) {
+          _userController.addSavedBobaPlace(e, _userController.firebaseUser.value.uid);
+        } else {
+          _userController.removeSavedBobaPlace(e, _userController.firebaseUser.value.uid);
+        }
         return e;
       }).toList();
     });
@@ -120,15 +125,13 @@ class _MapScreenState extends State<MapScreen> {
           .getBobaShops(latitude: latitude, longitude: longitude);
 
       this._bobaShops = newBobaShops;
-
       this._savedBobaShops = _userController.firestoreUser.value.favoriteBobaShops;
-
       this._bobaShops.map((e) {
-        if (this._savedBobaShops.where((element) => element.name == e.name).length != 0) {
+        if (this._savedBobaShops.where(
+                (element) => element.name == e.name).length != 0) {
           e.isSaved = true;
         }
-        return e;
-      });
+      }).toList();
 
       this._bobaShops.forEach((element) {
         _createBobaShopMarker(

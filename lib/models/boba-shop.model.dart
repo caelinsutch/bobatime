@@ -21,9 +21,10 @@ class BobaShopModel {
   String imageUrl;
   double rating;
   Coordinates coordinates;
+  bool isSaved;
 
   BobaShopModel(
-      {this.id, this.name, this.imageUrl, this.rating, this.coordinates});
+      {this.id, this.name, this.imageUrl, this.rating, this.coordinates}) : this.isSaved = false;
 
   factory BobaShopModel.fromMap(Map data) {
     return BobaShopModel(

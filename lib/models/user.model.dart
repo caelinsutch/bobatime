@@ -39,7 +39,7 @@ class UserModel {
         postCount: data['postCount'] ?? 0,
         followerCount: data['followerCount'] ?? 0,
         followedCount: data['followedCount'] ?? 0,
-        nameForSearch: data['dataForSearch'] ?? 0,
+        nameForSearch: data['dataForSearch'] ?? [],
         posts: data['posts'] ?? [],
         favoriteBobaShops: data['favoriteBobaShops'] != null
             ? data['favoriteBobaShops']

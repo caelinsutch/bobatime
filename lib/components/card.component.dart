@@ -4,6 +4,8 @@ class CardComponent extends StatelessWidget {
   Widget child;
   EdgeInsetsGeometry padding;
   EdgeInsetsGeometry margin;
+  double height;
+  double width;
 
   CardComponent(
       {this.child,

@@ -179,7 +179,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
     } else {
       try {
         _userController
-            .updateFirstoreUser(
+            .updateFirestoreUser(
                 updateInformation, _userController.firebaseUser.value.uid)
             .then((value) {
           Flushbar(
@@ -230,7 +230,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
     dynamic updateInfo = {
       'photoUrl': fileUrl,
     };
-    _userController.updateFirstoreUser(
+    _userController.updateFirestoreUser(
         updateInfo, _userController.firebaseUser.value.uid);
   }
 }

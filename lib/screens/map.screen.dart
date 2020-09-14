@@ -16,8 +16,10 @@ class _MapScreenState extends State<MapScreen> {
   MapController _mapController;
   LatLng _currentLatLng;
   List<BobaShopModel> _bobaShops;
+  List<BobaShopModel> _savedBobaShops;
   final PositionController _positionController = Get.find();
   final BobaYelpController _bobaYelpController = Get.find();
+  final UserController _userController = Get.find();
   List<Marker> _bobaShopMarkers = [];
 
   @override
@@ -89,10 +91,23 @@ class _MapScreenState extends State<MapScreen> {
                             restaurantTitle: e.name,
                             restaurantRating: e.rating,
                             restaurantImage: e.imageUrl,
+                            saved: e.isSaved,
+                    onSavedSwitch: (saved) => _saveBobaShop(e, saved),
                           ))
                       .toList())
               : Container()),
     );
+  }
+
+  void _saveBobaShop(BobaShopModel bobaShop, bool saved) async {
+    this.setState(() {
+      this._bobaShops = this._bobaShops.map((e) {
+        if (e.name == bobaShop.name) {
+          e.isSaved = !e.isSaved;
+        }
+        return e;
+      }).toList();
+    });
   }
 
   void _getLocalBobaShops() async {
@@ -105,6 +120,15 @@ class _MapScreenState extends State<MapScreen> {
           .getBobaShops(latitude: latitude, longitude: longitude);
 
       this._bobaShops = newBobaShops;
+
+      this._savedBobaShops = _userController.firestoreUser.value.favoriteBobaShops;
+
+      this._bobaShops.map((e) {
+        if (this._savedBobaShops.where((element) => element.name == e.name).length != 0) {
+          e.isSaved = true;
+        }
+        return e;
+      });
 
       this._bobaShops.forEach((element) {
         _createBobaShopMarker(

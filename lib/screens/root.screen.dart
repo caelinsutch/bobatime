@@ -125,7 +125,7 @@ class _RootScreenState extends State<RootScreen> {
     } else if (_selectedIndex == 2) {
       return _normalAppBar('Search');
     } else if (_selectedIndex == 3) {
-      return _normalAppBar(_authController.firestoreUser.value.name);
+      return _normalAppBar(_authController.firestoreUser.value.name ?? 'Account');
     } else {
       return _normalAppBar('');
     }

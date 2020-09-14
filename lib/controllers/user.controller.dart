@@ -113,11 +113,29 @@ class UserController extends GetxController {
     update();
   }
 
-  Future<void> updateFirstoreUser(
+  Future<void> updateFirestoreUser(
       Map updateValues, String firebaseUserUid) async {
     await _db
         .document('/users/$firebaseUserUid')
         .setData(updateValues, merge: true);
+    update();
+    return;
+  }
+
+  Future<void> addSavedBobaPlace(
+      BobaShopModel bobaShop, String firebaseUserUid) async {
+    await _db
+        .document('/users/$firebaseUserUid')
+        .setData({'favoriteBobaShops': FieldValue.arrayUnion([bobaShop.toMap()])}, merge: true);
+    update();
+    return;
+  }
+
+  Future<void> removeSavedBobaPlace(
+      BobaShopModel bobaShop, String firebaseUserUid) async {
+    await _db
+        .document('/users/$firebaseUserUid')
+        .setData({'favoriteBobaShops': FieldValue.arrayRemove([bobaShop.toMap()])}, merge: true);
     update();
     return;
   }

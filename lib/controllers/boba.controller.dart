@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:boba_time/controllers/controllers.dart';
 
 import 'package:boba_time/models/models.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,6 +8,7 @@ import 'package:http/http.dart' as http;
 
 class BobaYelpController extends GetxController {
   static BobaYelpController get to => Get.find();
+  final UserController _userController = Get.find();
   http.Client client = http.Client();
 
   final _yelpAuthHeader = {
@@ -29,5 +31,22 @@ class BobaYelpController extends GetxController {
     List<BobaShopModel> newBobaShops =
         data.map((e) => BobaShopModel.fromMap(e)).toList();
     return newBobaShops;
+  }
+
+  Future<List<BobaShopModel>> getBobaShopsWithSavedMarked(
+      {@required double latitude,
+        @required double longitude,
+        String searchTerm = 'boba'}) async {
+    List<BobaShopModel> bobaShops = await this.getBobaShops(latitude: latitude, longitude: longitude, searchTerm: searchTerm);
+    final List<BobaShopModel> savedBobaShops = _userController.firestoreUser.value.favoriteBobaShops;
+    bobaShops = bobaShops.map((e) {
+      if (savedBobaShops.where(
+              (element) => element.name == e.name).length != 0) {
+        e.isSaved = true;
+        print(e.name);
+      }
+      return e;
+    }).toList();
+    return bobaShops;
   }
 }

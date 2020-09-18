@@ -20,7 +20,7 @@ class _SearchScreenState extends State<SearchScreen> {
     // TODO: implement initState
     super.initState();
     _bobaYelpController
-        .getBobaShops(
+        .getBobaShopsWithSavedMarked(
       latitude: _positionController.latLng.value.latitude,
       longitude: _positionController.latLng.value.longitude,
     )
@@ -46,7 +46,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   prefixIcon: Icon(Icons.search)),
               onChanged: (value) {
                 _bobaYelpController
-                    .getBobaShops(
+                    .getBobaShopsWithSavedMarked(
                         latitude: _positionController.latLng.value.latitude,
                         longitude: _positionController.latLng.value.longitude,
                         searchTerm: 'boba ' + value)
@@ -99,6 +99,8 @@ class _SearchScreenState extends State<SearchScreen> {
                   .map((e) => BobaRestaurantCardComponent(
                         restaurantTitle: e.name,
                         restaurantRating: e.rating,
+                        saved: e.isSaved,
+                        onSavedSwitch: (saved) => null,
                         restaurantImage: e.imageUrl,
                       ))
                   .toList(),
